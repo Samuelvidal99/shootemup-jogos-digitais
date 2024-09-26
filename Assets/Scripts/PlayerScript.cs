@@ -9,9 +9,13 @@ public class PlayerScript : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject parentShip;
 
+     public Gun[] weapons; // Array de armas
+    private Gun currentWeapon; // A arma atualmente equipada
+
     private Vector2 screenBounds;
     private float objectWidth;
     private float objectHeight;
+    private bool canShoot = true; // Controla se o jogador pode disparar
 
     void Start()
     {
@@ -19,6 +23,11 @@ public class PlayerScript : MonoBehaviour
 
         objectWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
         objectHeight = GetComponent<SpriteRenderer>().bounds.extents.y;
+
+        if (weapons.Length > 0)
+        {
+            currentWeapon = weapons[weapons.Length - 1];
+        }
     }
 
     void Update()
@@ -34,9 +43,9 @@ public class PlayerScript : MonoBehaviour
         clampedPosition.y = Mathf.Clamp(clampedPosition.y, screenBounds.y * -1 + objectHeight, screenBounds.y - objectHeight);
         transform.position = clampedPosition;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            Shoot();
+            StartCoroutine(Shoot());
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -45,9 +54,18 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void Shoot()
+    IEnumerator Shoot()
     {
-        parentShip.GetComponent<BaseBulletStarter>().MakeOneShot();
+        canShoot = false;  // Impede o disparo enquanto o delay está ativo
+
+        if (currentWeapon != null)
+        {
+            currentWeapon.Shoot(bulletSpawnPoint);
+        }
+
+        yield return new WaitForSeconds(currentWeapon.shootDelay); // Aguarda o tempo do delay
+
+        canShoot = true; // Permite que o jogador dispare novamente
     }
 
     void Destroy()

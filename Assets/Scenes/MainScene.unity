@@ -336,6 +336,34 @@ PrefabInstance:
       propertyPath: fireDelay
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 138602623504992054, guid: 1a09f406e15243042af8595d756fcfe9, type: 3}
+      propertyPath: shootDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 138602623504992054, guid: 1a09f406e15243042af8595d756fcfe9, type: 3}
+      propertyPath: bulletSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 138602623504992054, guid: 1a09f406e15243042af8595d756fcfe9, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1877740161113332, guid: d17799e01588538449a360ded5bd038c, type: 3}
+    - target: {fileID: 138602623504992054, guid: 1a09f406e15243042af8595d756fcfe9, type: 3}
+      propertyPath: weapons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 138602623504992054, guid: 1a09f406e15243042af8595d756fcfe9, type: 3}
+      propertyPath: weapons.Array.data[0].shootDelay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 138602623504992054, guid: 1a09f406e15243042af8595d756fcfe9, type: 3}
+      propertyPath: weapons.Array.data[0].bulletSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 138602623504992054, guid: 1a09f406e15243042af8595d756fcfe9, type: 3}
+      propertyPath: weapons.Array.data[0].bulletPrefab
+      value: 
+      objectReference: {fileID: 1877740161113332, guid: d17799e01588538449a360ded5bd038c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
