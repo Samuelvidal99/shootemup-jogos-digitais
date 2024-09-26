@@ -47,20 +47,20 @@ namespace SmallShips
 
         // Update is called once per frame
         void Update () {
-            if (Input.GetMouseButtonUp(0))
-            {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-                if (hit.collider != null)
-                {
-                    if (selectedFrame != null)
-                    {
-                        selectedFrame.TurnOff();
-                    }
-                    selectedFrame = hit.collider.GetComponent<BaseFrameController>();
-                    selectedFrame.TurnOn();
-                }
-            }
+            // if (Input.GetMouseButtonUp(0))
+            // {
+            //     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //     RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            //     if (hit.collider != null)
+            //     {
+            //         if (selectedFrame != null)
+            //         {
+            //             selectedFrame.TurnOff();
+            //         }
+            //         selectedFrame = hit.collider.GetComponent<BaseFrameController>();
+            //         selectedFrame.TurnOn();
+            //     }
+            // }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

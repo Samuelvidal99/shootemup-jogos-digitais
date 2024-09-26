@@ -1,32 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using SmallShips;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
     public float moveSpeed = 2;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void FixedUpdate() 
-    {
         Vector2 pos = transform.position;
 
-        pos.x -= moveSpeed * Time.fixedDeltaTime;
+        // Movimentação do inimigo
+        pos.x -= moveSpeed * Time.deltaTime;
 
-        if (pos.x < -2 ) {
-            Destroy(gameObject);
+        // Se o inimigo passar de certo ponto da tela, ele é destruído
+        if (pos.x < -12)
+        {
+            Destroy(gameObject); // Destrói apenas a instância na cena, não o prefab original
         }
 
         transform.position = pos;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Verifica se a colisão foi com um objeto com tag "Enemy"
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("enemy exploded player"); 
+            
+            // Destruir o inimigo atingido
+            other.gameObject.GetComponent<ExplosionController>().StartExplosion();
+
+            // Destruir a fireball após a colisão
+            gameObject.GetComponent<ExplosionController>().StartExplosion();
+        }
     }
 }
