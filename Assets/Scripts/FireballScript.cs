@@ -27,6 +27,9 @@ public class FireballScript : MonoBehaviour
             GameObject enemyGroupSpawner = GameObject.Find("EnemyType2Spawner");
             enemyGroupSpawner.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroup();
 
+            GameObject enemyGroupSpawner2 = GameObject.Find("EnemyType2Spawner 1");
+            enemyGroupSpawner2.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroup();
+
             Destroy(gameObject); // Destroi a fireball
         }
     }

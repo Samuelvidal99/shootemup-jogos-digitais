@@ -77,7 +77,6 @@ public class EnemyGroupSpawner : MonoBehaviour
     private bool NoEnemiesLeft()
     {
         // Verifica se ainda existem inimigos ativos no grupo
-        Debug.Log(currentEnemyGroup.transform.childCount);
-        return currentEnemyGroup.transform.childCount == 1;
+        return currentEnemyGroup == null || currentEnemyGroup.transform.childCount == 1;
     }
 }
