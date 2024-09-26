@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SmallShips;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -35,7 +36,19 @@ public class EnemyScript : MonoBehaviour
             other.gameObject.GetComponent<ExplosionController>().StartExplosion();
 
             // Destruir a fireball após a colisão
-            gameObject.GetComponent<ExplosionController>().StartExplosion();
+
+            StartCoroutine(GameOverScreenCoroutine());
         }
+    }
+
+    IEnumerator GameOverScreenCoroutine()
+    {
+        Debug.Log("Pausa iniciada...");
+        
+        yield return new WaitForSeconds(1/2);
+        
+        gameObject.GetComponent<ExplosionController>().StartExplosion();
+
+        SceneManager.LoadScene("JogoOver");
     }
 }
