@@ -16,6 +16,11 @@ public class PlayerScript : MonoBehaviour
     private float objectHeight;
     private bool canShoot = true; // Controla se o jogador pode disparar
 
+    public float munition;
+    public float maxMunition = 100f;
+
+    public AmmunitionBarBehavior ammunitionBar;
+
     void Start()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -27,6 +32,17 @@ public class PlayerScript : MonoBehaviour
         {
             currentUpgrade = upgrades[upgrades.Length - 1];
         }
+
+        munition = 0f;
+        ammunitionBar.SetAmmunition(munition);
+        ammunitionBar.SetMaxAmmunition(maxMunition);
+    }
+
+    public void AddAmmo(int amount)
+    {
+        munition += amount;
+
+        ammunitionBar.SetAmmunition(munition);
     }
 
     void Update()

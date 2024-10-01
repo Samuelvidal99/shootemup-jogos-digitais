@@ -15,6 +15,10 @@ public class FireballScript : MonoBehaviour
 
             // Destruir a fireball após a colisão
             Destroy(gameObject);
+
+            GameObject player = GameObject.Find("Ship1");
+
+            player.GetComponent<PlayerScript>().AddAmmo(3);
         }
 
         if (other.CompareTag("EnemyType2"))
@@ -31,6 +35,9 @@ public class FireballScript : MonoBehaviour
             enemyGroupSpawner2.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroup();
 
             Destroy(gameObject); // Destroi a fireball
+
+            GameObject player = GameObject.Find("Ship1");
+            player.GetComponent<PlayerScript>().AddAmmo(3);
         }
     }
 }
