@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable] // Isso permite que a classe apareça no Inspector do Unity
-public class Gun
+public class Upgrade
 {
     // Campos da classe
     public GameObject bulletPrefab; // O prefab da bala
@@ -9,8 +9,10 @@ public class Gun
 
     public float shootDelay;
 
+    public float moveSpeed;
+
     // Construtor da classe (opcional)
-    public Gun(GameObject bulletPrefab, float bulletSpeed)
+    public Upgrade(GameObject bulletPrefab, float bulletSpeed)
     {
         this.bulletPrefab = bulletPrefab;
         this.bulletSpeed = bulletSpeed;

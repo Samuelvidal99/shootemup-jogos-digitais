@@ -29,9 +29,12 @@ public class EnemyType2Script : MonoBehaviour
         // Se o inimigo passar de certo ponto da tela, ele é destruído
         if (pos.x < -12)
         {
-            Debug.Log("teste");
-            // GameObject enemyGroupSpawner = GameObject.Find("EnemyType2Spawner");
-            // enemyGroupSpawner.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroup();
+            GameObject enemyGroupSpawner = GameObject.Find("EnemyType2Spawner");
+            enemyGroupSpawner.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroup();
+
+            GameObject enemyGroupSpawner2 = GameObject.Find("EnemyType2Spawner 1");
+            enemyGroupSpawner2.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroup();
+            
             Destroy(gameObject); // Destrói apenas a instância na cena, não o prefab original
         }
 

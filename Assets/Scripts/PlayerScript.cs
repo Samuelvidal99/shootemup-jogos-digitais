@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float moveSpeed = 5f;
     public Transform bulletSpawnPoint;
     public GameObject parentShip;
 
-     public Gun[] weapons; // Array de armas
-    private Gun currentWeapon; // A arma atualmente equipada
+     public Upgrade[] upgrades; // Array de armas
+    private Upgrade currentUpgrade; // A arma atualmente equipada
 
     private Vector2 screenBounds;
     private float objectWidth;
@@ -24,9 +23,9 @@ public class PlayerScript : MonoBehaviour
         objectWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
         objectHeight = GetComponent<SpriteRenderer>().bounds.extents.y;
 
-        if (weapons.Length > 0)
+        if (upgrades.Length > 0)
         {
-            currentWeapon = weapons[weapons.Length - 1];
+            currentUpgrade = upgrades[upgrades.Length - 1];
         }
     }
 
@@ -36,7 +35,7 @@ public class PlayerScript : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 moveDirection = new Vector3(moveVertical, moveHorizontal * -1, 0);
 
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        transform.Translate(moveDirection * currentUpgrade.moveSpeed * Time.deltaTime);
 
         Vector3 clampedPosition = transform.position;
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, screenBounds.x * -1 + objectWidth, screenBounds.x - objectWidth);
@@ -48,22 +47,22 @@ public class PlayerScript : MonoBehaviour
             StartCoroutine(Shoot());
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            Destroy();
-        }
+        // if (Input.GetMouseButtonDown(1))
+        // {
+        //     Destroy();
+        // }
     }
 
     IEnumerator Shoot()
     {
         canShoot = false;  // Impede o disparo enquanto o delay está ativo
 
-        if (currentWeapon != null)
+        if (currentUpgrade != null)
         {
-            currentWeapon.Shoot(bulletSpawnPoint);
+            currentUpgrade.Shoot(bulletSpawnPoint);
         }
 
-        yield return new WaitForSeconds(currentWeapon.shootDelay); // Aguarda o tempo do delay
+        yield return new WaitForSeconds(currentUpgrade.shootDelay); // Aguarda o tempo do delay
 
         canShoot = true; // Permite que o jogador dispare novamente
     }

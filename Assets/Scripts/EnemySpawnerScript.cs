@@ -4,14 +4,41 @@ using UnityEngine;
 
 public class EnemySpawnerScript : MonoBehaviour
 {
-    public GameObject enemyPrefab;  // O prefab da nave inimiga
-    public float spawnDelay = 2f;   // Tempo entre os spawns
-    public BoxCollider2D spawnArea; // O BoxCollider2D que define a área de spawn
+    public GameObject enemyPrefab;   // O prefab da nave inimiga
+    public float initialSpawnDelay = 3f;  // Tempo inicial entre os spawns
+    public float minimumSpawnDelay = 0.2f; // Tempo mínimo entre os spawns
+    public BoxCollider2D spawnArea;  // O BoxCollider2D que define a área de spawn
+    public float timeToReduceDelay = 10f;  // Tempo para diminuir o spawnDelay
+
+    private float spawnDelay;        // Tempo entre os spawns (variável mutável)
+    private float elapsedTime = 0f;  // Tempo decorrido desde o início do jogo
 
     private void Start()
     {
+        // Inicializa o spawnDelay com o valor inicial
+        spawnDelay = initialSpawnDelay;
+
         // Inicia o processo de spawn repetidamente
         StartCoroutine(SpawnEnemies());
+    }
+
+    private void Update()
+    {
+        // Atualiza o tempo decorrido
+        elapsedTime += Time.deltaTime;
+
+        // A cada 30 segundos, diminui o tempo de spawnDelay
+        if (elapsedTime >= timeToReduceDelay)
+        {
+            // Diminui o delay, respeitando o mínimo
+            spawnDelay = Mathf.Max(spawnDelay - 0.2f, minimumSpawnDelay);
+
+            // Reseta o tempo decorrido
+            elapsedTime = 0f;
+
+            // Log para depuração
+            Debug.Log($"Novo tempo de spawn: {spawnDelay} segundos");
+        }
     }
 
     IEnumerator SpawnEnemies()
