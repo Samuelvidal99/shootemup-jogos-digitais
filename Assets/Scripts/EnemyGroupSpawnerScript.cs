@@ -27,7 +27,7 @@ public class EnemyGroupSpawner : MonoBehaviour
         gameTime += Time.deltaTime;
 
         // Verifica se já se passaram 30 segundos
-        if (gameTime >= 30f)
+        if (gameTime >= 15f)
         {
             // Diminui o tempo de respawn
             respawnDelay = Mathf.Max(respawnDelay - 2f, minimumRespawnDelay);

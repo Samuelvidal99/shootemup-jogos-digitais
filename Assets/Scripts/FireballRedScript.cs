@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SmallShips;
 using UnityEngine;
 
-public class FireballScript : MonoBehaviour
+public class FireballRedScript : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,7 +18,7 @@ public class FireballScript : MonoBehaviour
 
             GameObject player = GameObject.Find("Ship1");
 
-            player.GetComponent<PlayerScript>().AddAmmo(4);
+            player.GetComponent<PlayerScript>().AddAmmo(3);
         }
 
         if (other.CompareTag("EnemyType2"))
@@ -37,7 +37,7 @@ public class FireballScript : MonoBehaviour
             Destroy(gameObject); // Destroi a fireball
 
             GameObject player = GameObject.Find("Ship1");
-            player.GetComponent<PlayerScript>().AddAmmo(5);
+            player.GetComponent<PlayerScript>().AddAmmo(3);
         }
     }
 }

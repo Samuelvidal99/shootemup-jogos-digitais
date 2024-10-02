@@ -8,8 +8,9 @@ public class PlayerScript : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject parentShip;
 
-     public Upgrade[] upgrades; // Array de armas
-    private Upgrade currentUpgrade; // A arma atualmente equipada
+    public Upgrade[] upgrades; // Array de upgrades
+    private int currentUpgradeIndex = 0; // Índice do upgrade atualmente equipado
+    private Upgrade currentUpgrade; // O upgrade atualmente equipado
 
     private Vector2 screenBounds;
     private float objectWidth;
@@ -28,9 +29,10 @@ public class PlayerScript : MonoBehaviour
         objectWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
         objectHeight = GetComponent<SpriteRenderer>().bounds.extents.y;
 
+        // Começa com o primeiro upgrade da lista
         if (upgrades.Length > 0)
         {
-            currentUpgrade = upgrades[upgrades.Length - 1];
+            currentUpgrade = upgrades[currentUpgradeIndex];
         }
 
         munition = 0f;
@@ -42,7 +44,30 @@ public class PlayerScript : MonoBehaviour
     {
         munition += amount;
 
+        // Atualiza a barra de munição
         ammunitionBar.SetAmmunition(munition);
+
+        // Verifica se a munição atingiu ou ultrapassou o valor máximo
+        if (munition >= maxMunition)
+        {
+            UpgradeToNext();
+        }
+    }
+
+    private void UpgradeToNext()
+    {
+        if (currentUpgradeIndex < upgrades.Length - 1)
+        {
+            currentUpgradeIndex++;
+            currentUpgrade = upgrades[currentUpgradeIndex];
+
+            if (currentUpgradeIndex != upgrades.Length - 1) {
+                munition = 0f; // Reseta a munição
+                ammunitionBar.SetAmmunition(munition); // Atualiza a barra de munição
+            }
+
+            Debug.Log("Upgrade realizado: " + currentUpgradeIndex);
+        }
     }
 
     void Update()
@@ -62,11 +87,6 @@ public class PlayerScript : MonoBehaviour
         {
             StartCoroutine(Shoot());
         }
-
-        // if (Input.GetMouseButtonDown(1))
-        // {
-        //     Destroy();
-        // }
     }
 
     IEnumerator Shoot()
