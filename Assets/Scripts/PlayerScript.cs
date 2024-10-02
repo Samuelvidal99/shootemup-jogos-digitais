@@ -24,6 +24,8 @@ public class PlayerScript : MonoBehaviour
 
     public ScreenGlowEffect screenGlowEffect;
 
+    public CameraShake cameraShake;
+
     void Start()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -115,6 +117,7 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("Special");
 
         screenGlowEffect.StartGlow();
+        cameraShake.TriggerShake();
 
         if (munition - 50f <= 0) {
             currentUpgradeIndex--;
