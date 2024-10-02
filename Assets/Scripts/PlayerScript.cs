@@ -22,6 +22,8 @@ public class PlayerScript : MonoBehaviour
 
     public AmmunitionBarBehavior ammunitionBar;
 
+    public ScreenGlowEffect screenGlowEffect;
+
     void Start()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -111,6 +113,8 @@ public class PlayerScript : MonoBehaviour
     void Special()
     {
         Debug.Log("Special");
+
+        screenGlowEffect.StartGlow();
 
         if (munition - 50f <= 0) {
             currentUpgradeIndex--;
