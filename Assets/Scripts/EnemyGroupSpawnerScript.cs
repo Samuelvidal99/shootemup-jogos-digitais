@@ -47,6 +47,13 @@ public class EnemyGroupSpawner : MonoBehaviour
         }
     }
 
+    public void DestroyEnemyGroupSpecial()
+    {
+        Destroy(currentEnemyGroup);
+        currentEnemyGroup = null; // Limpa a referência após a destruição
+        StartRespawn(); // Inicia o processo de respawn
+    }
+
     private void StartRespawn()
     {
         if (!isRespawning)

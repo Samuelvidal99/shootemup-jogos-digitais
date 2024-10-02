@@ -87,6 +87,11 @@ public class PlayerScript : MonoBehaviour
         {
             StartCoroutine(Shoot());
         }
+
+        if (Input.GetMouseButtonDown(1) && munition >= 50)
+        {
+            Special();
+        }
     }
 
     IEnumerator Shoot()
@@ -103,8 +108,27 @@ public class PlayerScript : MonoBehaviour
         canShoot = true; // Permite que o jogador dispare novamente
     }
 
-    void Destroy()
+    void Special()
     {
-        parentShip.GetComponent<ExplosionController>().StartExplosion();
+        Debug.Log("Special");
+
+        if (munition - 50f <= 0) {
+            currentUpgradeIndex--;
+            currentUpgrade = upgrades[currentUpgradeIndex];
+        }
+        munition -= 50f; // Reseta a munição
+        ammunitionBar.SetAmmunition(munition); // Atualiza a barra de munição
+
+        GameObject enemyGroupSpawner = GameObject.Find("EnemyType2Spawner");
+        enemyGroupSpawner.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroupSpecial();
+
+        GameObject enemyGroupSpawner2 = GameObject.Find("EnemyType2Spawner 1");
+        enemyGroupSpawner2.GetComponent<EnemyGroupSpawner>().DestroyEnemyGroupSpecial();
+
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("EnemyType1");
+        foreach (GameObject obj in objectsWithTag)
+        {
+            obj.GetComponent<ExplosionController>().StartExplosion();
+        }
     }
 }
